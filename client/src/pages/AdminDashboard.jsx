@@ -11,9 +11,11 @@ const AdminDashboard = () => {
     fetchTeams();
   }, []);
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   const fetchTeams = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/admin/teams');
+      const response = await axios.get(`${API_URL}/api/admin/teams`);
       setTeams(response.data);
     } catch (error) {
       console.error('Error fetching teams:', error);
@@ -22,7 +24,7 @@ const AdminDashboard = () => {
 
   const verifyTeam = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/admin/teams/${id}/verify`, { status });
+      await axios.put(`${API_URL}/api/admin/teams/${id}/verify`, { status });
       fetchTeams(); // Refresh the list
     } catch (error) {
       console.error('Error updating status:', error);
@@ -72,7 +74,7 @@ const AdminDashboard = () => {
                 <td>{team.leaderName}</td>
                 <td>
                   {team.payment?.transactionId} 
-                  <a href={`http://localhost:5000/api/image/${team.payment?.screenshotId}`} target="_blank" rel="noreferrer" className="link-btn" style={{display: 'inline-block', marginLeft: '8px'}}>View Screenshot</a>
+                  <a href={`${API_URL}/api/image/${team.payment?.screenshotId}`} target="_blank" rel="noreferrer" className="link-btn" style={{display: 'inline-block', marginLeft: '8px'}}>View Screenshot</a>
                 </td>
                 <td>
                   <span className={`status-badge ${team.payment?.status === 'Approved' ? 'approved' : 'pending'}`}>
