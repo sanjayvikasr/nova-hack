@@ -13,7 +13,10 @@ const registrationSchema = new mongoose.Schema({
   member5Name: { type: String },
   payment: {
     transactionId: { type: String, required: true },
-    screenshotPath: { type: String, required: true },
+    screenshotId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true
+  },
     status: { type: String, enum: ['Pending Verification', 'Approved', 'Rejected'], default: 'Pending Verification' }
   }
 }, { timestamps: true });

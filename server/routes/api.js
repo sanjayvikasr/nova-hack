@@ -3,17 +3,9 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const Registration = require('../models/Registration');
-
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, '../../uploads/payment-screenshots'));
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
+const mongoose = require('mongoose');
+const { Readable } = require('stream');// Configure multer for memory storage
+const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 // POST /api/register - Register team and upload payment
@@ -27,6 +19,19 @@ router.post('/register', upload.single('screenshot'), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ error: 'Payment screenshot is required.' });
     }
+
+    const uploadFile = () => new Promise((resolve, reject) => {
+      const db = mongoose.connection.db;
+      const bucket = new mongoose.mongo.GridFSBucket(db, { bucketName: 'screenshots' });
+      const uploadStream = bucket.openUploadStream(req.file.originalname, { contentType: req.file.mimetype });
+      
+      Readable.from(req.file.buffer)
+        .pipe(uploadStream)
+        .on('error', reject)
+        .on('finish', () => resolve(uploadStream.id));
+    });
+
+    const screenshotId = await uploadFile();
 
     const registrationId = 'NOVA-' + Math.floor(1000 + Math.random() * 9000);
 
@@ -43,7 +48,7 @@ router.post('/register', upload.single('screenshot'), async (req, res) => {
       member5Name,
       payment: {
         transactionId,
-        screenshotPath: `/uploads/payment-screenshots/${req.file.filename}`,
+        screenshotId,
         status: 'Pending Verification'
       }
     });
@@ -83,6 +88,26 @@ router.put('/admin/teams/:id/verify', async (req, res) => {
     res.json({ message: `Team ${status} successfully`, team });
   } catch (error) {
     res.status(500).json({ error: 'Failed to verify team' });
+  }
+});
+
+// GET /api/image/:id - Get image from GridFS
+router.get('/image/:id', async (req, res) => {
+  try {
+    const db = mongoose.connection.db;
+    const bucket = new mongoose.mongo.GridFSBucket(db, { bucketName: 'screenshots' });
+    const objectId = new mongoose.Types.ObjectId(req.params.id);
+    
+    const files = await bucket.find({ _id: objectId }).toArray();
+    if (!files || files.length === 0) {
+      return res.status(404).send('Image not found');
+    }
+    
+    res.set('Content-Type', files[0].contentType);
+    const downloadStream = bucket.openDownloadStream(objectId);
+    downloadStream.pipe(res);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch image' });
   }
 });
 

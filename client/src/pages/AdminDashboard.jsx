@@ -72,7 +72,7 @@ const AdminDashboard = () => {
                 <td>{team.leaderName}</td>
                 <td>
                   {team.payment?.transactionId} 
-                  <a href={`http://localhost:5000${team.payment?.screenshotPath}`} target="_blank" rel="noreferrer" className="link-btn" style={{display: 'inline-block', marginLeft: '8px'}}>View Screenshot</a>
+                  <a href={`http://localhost:5000/api/image/${team.payment?.screenshotId}`} target="_blank" rel="noreferrer" className="link-btn" style={{display: 'inline-block', marginLeft: '8px'}}>View Screenshot</a>
                 </td>
                 <td>
                   <span className={`status-badge ${team.payment?.status === 'Approved' ? 'approved' : 'pending'}`}>
