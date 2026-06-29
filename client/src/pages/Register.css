@@ -1,0 +1,42 @@
+.register-page {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.register-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.form-section {
+  margin-bottom: 3rem;
+}
+
+.section-subtitle {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.half {
+  flex: 1 1 calc(50% - 1.5rem);
+  min-width: 250px;
+}
+
+.third {
+  flex: 1 1 calc(33.333% - 1.5rem);
+  min-width: 200px;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-neon);
+}

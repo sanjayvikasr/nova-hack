@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Rajdhani:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Color Palette - Neon Cyberpunk */
+  --bg-dark: #050117; /* Deep midnight blue/black */
+  --bg-light: #0d0628;
+  --bg-card: rgba(13, 6, 40, 0.7);
+  
+  --primary-neon: #a020f0; /* Purple neon */
+  --primary-neon-dim: rgba(160, 32, 240, 0.2);
+  --secondary-neon: #00f3ff; /* Cyan neon */
+  --secondary-neon-dim: rgba(0, 243, 255, 0.2);
+  
+  --text-main: #ffffff;
+  --text-muted: #b0a8d6;
+  
+  --border-neon: rgba(160, 32, 240, 0.5);
+  --border-cyan: rgba(0, 243, 255, 0.5);
+
+  --success: #00ff66;
+  --error: #ff0055;
+
+  /* Fonts */
+  --font-main: 'Outfit', sans-serif;
+  --font-display: 'Rajdhani', sans-serif;
+
+  /* Glow Effects */
+  --glow-primary: 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon), 0 0 40px var(--primary-neon);
+  --glow-secondary: 0 0 10px var(--secondary-neon), 0 0 20px var(--secondary-neon), 0 0 40px var(--secondary-neon);
+  --glow-box: 0 0 15px var(--primary-neon-dim), inset 0 0 15px var(--primary-neon-dim);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(160, 32, 240, 0.15), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(0, 243, 255, 0.15), transparent 25%);
+  background-attachment: fixed;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Cyberpunk Button */
+.btn-neon {
+  background: transparent;
+  color: var(--text-main);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0.8rem 2rem;
+  border: 2px solid var(--primary-neon);
+  border-radius: 30px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: var(--glow-box);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-neon:hover {
+  background: var(--primary-neon);
+  box-shadow: var(--glow-primary);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-neon-cyan {
+  border-color: var(--secondary-neon);
+  box-shadow: 0 0 15px var(--secondary-neon-dim), inset 0 0 15px var(--secondary-neon-dim);
+}
+
+.btn-neon-cyan:hover {
+  background: var(--secondary-neon);
+  box-shadow: var(--glow-secondary);
+  color: var(--bg-dark);
+}
+
+/* Glassmorphism Card */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 16px;
+  padding: 2px;
+  background: linear-gradient(45deg, var(--primary-neon), transparent, var(--secondary-neon));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  color: var(--secondary-neon);
+  letter-spacing: 1px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-neon);
+  border-radius: 8px;
+  color: #fff;
+  font-family: var(--font-main);
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--secondary-neon);
+  box-shadow: 0 0 10px var(--secondary-neon-dim);
+}
+
+/* Animations */
+@keyframes pulseGlow {
+  0% { text-shadow: 0 0 10px var(--primary-neon); }
+  50% { text-shadow: 0 0 30px var(--primary-neon), 0 0 10px #fff; }
+  100% { text-shadow: 0 0 10px var(--primary-neon); }
+}
+
+.text-glow {
+  animation: pulseGlow 3s infinite alternate;
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--secondary-neon), var(--primary-neon));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

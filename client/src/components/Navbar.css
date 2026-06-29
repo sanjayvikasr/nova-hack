@@ -1,0 +1,92 @@
+.navbar {
+  background: rgba(5, 1, 23, 0.8);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+}
+
+.navbar-logo {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-item {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  position: relative;
+}
+
+.nav-item:hover, .nav-item.active {
+  color: #fff;
+  text-shadow: 0 0 10px var(--secondary-neon);
+}
+
+.nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--secondary-neon);
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px var(--secondary-neon);
+}
+
+.nav-item:hover::after, .nav-item.active::after {
+  width: 100%;
+}
+
+.nav-icon {
+  display: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+@media screen and (max-width: 960px) {
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 80px;
+    left: -100%;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: rgba(5, 1, 23, 0.95);
+    backdrop-filter: blur(20px);
+    transition: all 0.3s ease;
+    justify-content: flex-start;
+    padding-top: 2rem;
+    gap: 2.5rem;
+  }
+  
+  .nav-menu.active {
+    left: 0;
+  }
+  
+  .nav-icon {
+    display: block;
+  }
+}

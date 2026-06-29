@@ -1,0 +1,107 @@
+.payment-page {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+.payment-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.payment-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  align-items: center;
+}
+
+.qr-section {
+  flex: 1;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px dashed var(--secondary-neon);
+}
+
+.qr-placeholder {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.qr-icon {
+  color: #000;
+}
+
+.upi-id {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+}
+
+.upi-id strong {
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.amount {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+}
+
+.amount strong {
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.instructions {
+  flex: 2;
+  min-width: 300px;
+}
+
+.payment-form {
+  border-top: 1px solid var(--border-neon);
+  padding-top: 2rem;
+}
+
+.file-upload-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.file-input {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.5);
+  border: 2px dashed var(--border-neon);
+  border-radius: 8px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.file-label:hover {
+  background: rgba(160, 32, 240, 0.1);
+  border-color: var(--primary-neon);
+  color: #fff;
+}
